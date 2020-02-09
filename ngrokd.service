@@ -1,0 +1,11 @@
+[Unit]
+Description=ngrokd
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/ngrokd -tlsKey=/etc/ngrok/tls.key -tlsCrt=/etc/ngrok/tls.crt -domain=ngrok.magicarena.cn -httpAddr=:7070 -httpsAddr=:7071 -tunnelAddr=:7443 -log=/var/log/ngrok/ngrokd.log -log-level=DEBUG
+ExecReload=
+ExecStop=/usr/bin/kill -s 9 $(/usr/bin/ps aux | /usr/bin/grep /usr/bin/ngrokd | /usr/bin/grep -v grep | /usr/bin/awk 'NR==1{print $2}')
+
+[Install]
+WantedBy=multi-user.target

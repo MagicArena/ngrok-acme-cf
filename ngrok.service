@@ -1,0 +1,11 @@
+[Unit]
+Description=ngrok
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/ngrok -config=/etc/ngrok/ngrok.yml -proto=http+https+tcp -log=/var/log/ngrok/ngrok.log -log-level=DEBUG start-all 
+ExecReload=
+ExecStop=/usr/bin/kill -s 9 $(/usr/bin/ps aux | /usr/bin/grep /usr/bin/ngrok | /usr/bin/grep -v grep | /usr/bin/awk 'NR==1{print $2}')
+
+[Install]
+WantedBy=multi-user.target
