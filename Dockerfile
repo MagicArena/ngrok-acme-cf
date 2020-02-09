@@ -50,6 +50,9 @@ RUN apk add --no-cache ca-certificates wget build-base curl go git openssl opens
     GOOS=windows GOARCH=386 make release-client && \
     apk del wget build-base curl go git openssl openssl-dev && rm -rf /var/cache/apk/*
 
+ENV CF_Account_ID=
+ENV CF_Token=
+
 ENTRYPOINT /ngrok/bin/ngrokd \
           -domain=${NGROK_DOMAIN} \
           -tlsKey=/ngrok/assets/server/tls/snakeoil.key \
